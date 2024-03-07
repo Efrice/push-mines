@@ -9,10 +9,18 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Box: typeof import('./src/components/Box.vue')['default']
+    copy: typeof import('./src/components/Box copy.vue')['default']
+    Grid: typeof import('./src/components/Grid.vue')['default']
+    Mine: typeof import('./src/components/Mine.vue')['default']
+    Minesweeper: typeof import('./src/components/Minesweeper.vue')['default']
+    Normal: typeof import('./src/components/Normal.vue')['default']
+    OverMan: typeof import('./src/components/OverMan.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheCounter: typeof import('./src/components/TheCounter.vue')['default']
     TheFooter: typeof import('./src/components/TheFooter.vue')['default']
     TheInput: typeof import('./src/components/TheInput.vue')['default']
+    User: typeof import('./src/components/User.vue')['default']
   }
 }

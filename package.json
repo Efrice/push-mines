@@ -12,7 +12,10 @@
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
+    "@iconify-json/arcticons": "^1.1.95",
+    "@iconify-json/material-symbols-light": "^1.1.13",
     "@vueuse/core": "^10.1.2",
+    "pinia": "^2.1.7",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0"
   },
