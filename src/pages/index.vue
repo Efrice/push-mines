@@ -4,6 +4,8 @@ import Map from './Map.vue'
 
 <template>
   <div>
-    <Map />
+    <Map>
+      <Player />
+    </Map>
   </div>
 </template>

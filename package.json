@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest --watch=false",
     "up": "taze major -I",
     "postinstall": "npx simple-git-hooks"
   },
