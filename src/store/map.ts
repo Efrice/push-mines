@@ -8,7 +8,13 @@ export enum CellType {
 type Map = CellType[][]
 
 export const useMapStore = defineStore('map', () => {
-  const map = ref<Map>([])
+  const map = ref<Map>([
+    [1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1],
+  ])
 
   function setup(newMap: Map) {
     map.value.splice(0, map.value.length, ...newMap)
