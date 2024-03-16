@@ -1,45 +1,81 @@
 import { defineStore } from 'pinia'
 import { useMapStore } from './map'
-
-interface Position {
-  top: number
-  left: number
-}
+import { useMinesStore } from './mines'
+import type { Position } from './types'
 
 export const usePlayerStore = defineStore('player', () => {
   const { isGrid } = useMapStore()
+  const {
+    isMine,
+    moveLeft: moveMineLeft,
+    moveRight: moveMineRight,
+    moveUp: moveMineUp,
+    moveDown: moveMineDown,
+  } = useMinesStore()
 
-  const position = ref<Position>({
-    top: 2,
-    left: 2,
+  const position = reactive<Position>({
+    top: 0,
+    left: 0,
   })
 
   function setup(newPos: Position) {
-    Object.assign(position.value, newPos)
+    Object.assign(position, newPos)
   }
 
   function moveLeft() {
-    if (isGrid(position.value.left - 1, position.value.top))
+    const leftPosition = {
+      top: position.top,
+      left: position.left - 1,
+    }
+    if (isGrid(leftPosition))
       return
-    position.value.left -= 1
+    let move = true
+    if (isMine(leftPosition))
+      move = moveMineLeft(leftPosition)
+    if (move)
+      position.left -= 1
   }
 
   function moveRight() {
-    if (isGrid(position.value.left + 1, position.value.top))
+    const rightPosition = {
+      top: position.top,
+      left: position.left + 1,
+    }
+    if (isGrid(rightPosition))
       return
-    position.value.left += 1
+    let move = true
+    if (isMine(rightPosition))
+      move = moveMineRight(rightPosition)
+    if (move)
+      position.left += 1
   }
 
   function moveUp() {
-    if (isGrid(position.value.left, position.value.top - 1))
+    const upPosition = {
+      top: position.top - 1,
+      left: position.left,
+    }
+    if (isGrid(upPosition))
       return
-    position.value.top -= 1
+    let move = true
+    if (isMine(upPosition))
+      move = moveMineUp(upPosition)
+    if (move)
+      position.top -= 1
   }
 
   function moveDown() {
-    if (isGrid(position.value.left, position.value.top + 1))
+    const downPosition = {
+      top: position.top + 1,
+      left: position.left,
+    }
+    if (isGrid(downPosition))
       return
-    position.value.top += 1
+    let move = true
+    if (isMine(downPosition))
+      move = moveMineDown(downPosition)
+    if (move)
+      position.top += 1
   }
 
   return {

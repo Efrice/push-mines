@@ -6,6 +6,8 @@ import Map from './Map.vue'
   <div>
     <Map>
       <Player />
+      <Mines />
+      <Boxes />
     </Map>
   </div>
 </template>

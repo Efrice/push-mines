@@ -8,7 +8,12 @@ interface MOVE_OPERATIONS {
   ArrowDown: () => void
 }
 
-const { position, moveLeft, moveRight, moveUp, moveDown } = usePlayerStore()
+const { position, setup, moveLeft, moveRight, moveUp, moveDown } = usePlayerStore()
+
+setup({
+  top: 3,
+  left: 3,
+})
 
 const cellLen = 20
 const style = computed(() => {
