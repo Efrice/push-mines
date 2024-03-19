@@ -1,23 +1,11 @@
 import { defineStore } from 'pinia'
-import type { Position } from './types'
-
-export enum CellType {
-  NORMAL,
-  GRID,
-}
-
-type Map = CellType[][]
+import { CellType } from './types'
+import type { MapType, Position } from './types'
 
 export const useMapStore = defineStore('map', () => {
-  const map = reactive<Map>([
-    [1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1],
-  ])
+  const map = reactive<MapType>([])
 
-  function setup(newMap: Map) {
+  function setup(newMap: MapType) {
     map.splice(0, map.length, ...newMap)
   }
 
