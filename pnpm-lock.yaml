@@ -7,6 +7,7 @@ specifiers:
   '@iconify-json/material-symbols-light': ^1.1.13
   '@types/canvas-confetti': ^1.6.4
   '@types/node': ^18.16.11
+  '@types/pako': ^2.0.3
   '@unocss/eslint-config': ^0.51.13
   '@unocss/reset': ^0.51.13
   '@vitejs/plugin-vue': ^4.2.3
@@ -17,6 +18,7 @@ specifiers:
   eslint: 8.39.0
   jsdom: ^22.0.0
   lint-staged: ^13.2.2
+  pako: ^2.1.0
   pinia: ^2.1.7
   pnpm: ^8.5.1
   simple-git-hooks: ^2.8.1
@@ -38,6 +40,7 @@ dependencies:
   '@iconify-json/material-symbols-light': 1.1.13
   '@vueuse/core': 10.8.0_vue@3.4.19
   canvas-confetti: 1.9.2
+  pako: 2.1.0
   pinia: 2.1.7_typescript@5.3.3+vue@3.4.19
   vue: 3.4.19_typescript@5.3.3
   vue-router: 4.3.0_vue@3.4.19
@@ -47,6 +50,7 @@ devDependencies:
   '@iconify-json/carbon': 1.1.30
   '@types/canvas-confetti': 1.6.4
   '@types/node': 18.19.18
+  '@types/pako': 2.0.3
   '@unocss/eslint-config': 0.51.13_eslint@8.39.0+typescript@5.3.3
   '@unocss/reset': 0.51.13
   '@vitejs/plugin-vue': 4.6.2_vite@4.5.2+vue@3.4.19
@@ -818,6 +822,10 @@ packages:
 
   /@types/normalize-package-data/2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
+    dev: true
+
+  /@types/pako/2.0.3:
+    resolution: {integrity: sha512-bq0hMV9opAcrmE0Byyo0fY3Ew4tgOevJmQ9grUhpXQhYfyLJ1Kqg3P33JT5fdbT2AjeAjR51zqqVjAL/HMkx7Q==}
     dev: true
 
   /@types/semver/7.5.7:
@@ -4928,6 +4936,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /pako/2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
+    dev: false
 
   /parent-module/1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}

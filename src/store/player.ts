@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useMapStore } from './map'
 import { useMinesStore } from './mines'
-import type { Position } from './types'
+import type { Position, Step } from './types'
 
 export const usePlayerStore = defineStore('player', () => {
   const { isGrid } = useMapStore()
@@ -78,8 +78,16 @@ export const usePlayerStore = defineStore('player', () => {
       position.top += 1
   }
 
+  const steps: Step[] = []
+
+  function pushStep(step: Step) {
+    steps.push(step)
+  }
+
   return {
     position,
+    steps,
+    pushStep,
     setup,
     moveLeft,
     moveRight,
