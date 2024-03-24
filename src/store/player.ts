@@ -4,7 +4,7 @@ import { useMinesStore } from './mines'
 import type { Position, Step } from './types'
 
 export const usePlayerStore = defineStore('player', () => {
-  const { isGrid } = useMapStore()
+  const { isWall } = useMapStore()
   const {
     isMine,
     moveLeft: moveMineLeft,
@@ -27,7 +27,7 @@ export const usePlayerStore = defineStore('player', () => {
       top: position.top,
       left: position.left - 1,
     }
-    if (isGrid(leftPosition))
+    if (isWall(leftPosition))
       return
     let move = true
     if (isMine(leftPosition))
@@ -41,7 +41,7 @@ export const usePlayerStore = defineStore('player', () => {
       top: position.top,
       left: position.left + 1,
     }
-    if (isGrid(rightPosition))
+    if (isWall(rightPosition))
       return
     let move = true
     if (isMine(rightPosition))
@@ -55,7 +55,7 @@ export const usePlayerStore = defineStore('player', () => {
       top: position.top - 1,
       left: position.left,
     }
-    if (isGrid(upPosition))
+    if (isWall(upPosition))
       return
     let move = true
     if (isMine(upPosition))
@@ -69,7 +69,7 @@ export const usePlayerStore = defineStore('player', () => {
       top: position.top + 1,
       left: position.left,
     }
-    if (isGrid(downPosition))
+    if (isWall(downPosition))
       return
     let move = true
     if (isMine(downPosition))

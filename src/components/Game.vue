@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import html2canvas from 'html2canvas'
+import GIF from 'gif.js'
 import type { Game, Step } from '~/store/types'
 import { useMapStore } from '~/store/map'
 import { useMinesStore } from '~/store/mines'
@@ -88,10 +90,30 @@ const stepOperations: STEP_OPERATIONS = {
   3: moveDown,
   4: moveRight,
 }
-const { steps: querySteps } = inflate(route.query.steps)
-querySteps.forEach((step: Step, i: number) => {
-  setTimeout(stepOperations[step], 1000 * (i + 1))
-})
+const routeSteps = route.query.steps
+if (routeSteps) {
+  const { steps: querySteps } = inflate(route.query.steps)
+  if (querySteps.length > 0) {
+    const gif = new GIF({
+      workers: 2,
+      quality: 10,
+    })
+    querySteps.forEach((step: Step, i: number) => {
+      setTimeout(async () => {
+        stepOperations[step]()
+        const canvas: any = await createCanvas()
+        gif.addFrame(canvas, { copy: true })
+      }, 500 * (i + 1))
+    })
+
+    setTimeout(() => {
+      gif.on('finished', (blob: Blob) => {
+        window.open(URL.createObjectURL(blob))
+      })
+      gif.render()
+    }, (querySteps.length + 1) * 500)
+  }
+}
 
 watchEffect(() => {
   router.push({
@@ -106,6 +128,14 @@ watchEffect(() => {
 const passed = computed(() => {
   return minesPosition.every(mine => boxesPosition.find(position => position.top === mine.top && position.left === mine.left))
 })
+
+async function createCanvas() {
+  return new Promise((resolve) => {
+    html2canvas(document.getElementById('map')!).then((canvas) => {
+      resolve(canvas)
+    })
+  })
+}
 </script>
 
 <template>

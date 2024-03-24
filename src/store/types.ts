@@ -1,6 +1,6 @@
 export enum CellType {
   NORMAL,
-  GRID,
+  WALL,
 }
 
 export type MapType = CellType[][]

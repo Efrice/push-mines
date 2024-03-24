@@ -6,13 +6,13 @@ const { map } = useMapStore()
 </script>
 
 <template>
-  <div relative m-auto w-fit border border-coolgray border-rounded>
+  <div id="map" relative m-auto w-fit>
     <div v-for="(item, i) in map" :key="i" flex>
       <template
         v-for="(_, j) in item"
         :key="i * 10 + j"
       >
-        <Grid v-if="map[i][j] === CellType.GRID" />
+        <Wall v-if="map[i][j] === CellType.WALL" />
         <Normal v-else />
       </template>
     </div>

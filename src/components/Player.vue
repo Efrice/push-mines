@@ -39,5 +39,7 @@ window.addEventListener('keydown', ({ key }) => {
 </script>
 
 <template>
-  <div i-carbon:user absolute h5 w5 :style="style" />
+  <div absolute h5 w5 :style="style">
+    <img src="../assets/player.png">
+  </div>
 </template>

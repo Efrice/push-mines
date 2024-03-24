@@ -3,7 +3,7 @@ import { useMapStore } from './map'
 import type { Position } from './types'
 
 export const useMinesStore = defineStore('mines', () => {
-  const { isGrid } = useMapStore()
+  const { isWall } = useMapStore()
 
   const positions = reactive<Position[]>([])
 
@@ -17,7 +17,7 @@ export const useMinesStore = defineStore('mines', () => {
       top,
       left: left - 1,
     }
-    if (isGrid(leftPostion))
+    if (isWall(leftPostion))
       return false
     if (isMine(leftPostion))
       return false
@@ -32,7 +32,7 @@ export const useMinesStore = defineStore('mines', () => {
       top,
       left: left + 1,
     }
-    if (isGrid(rightPostion))
+    if (isWall(rightPostion))
       return false
     if (isMine(rightPostion))
       return false
@@ -47,7 +47,7 @@ export const useMinesStore = defineStore('mines', () => {
       top: top - 1,
       left,
     }
-    if (isGrid(upPostion))
+    if (isWall(upPostion))
       return false
     if (isMine(upPostion))
       return false
@@ -62,7 +62,7 @@ export const useMinesStore = defineStore('mines', () => {
       top: top + 1,
       left,
     }
-    if (isGrid(upPostion))
+    if (isWall(upPostion))
       return false
     if (isMine(upPostion))
       return false
