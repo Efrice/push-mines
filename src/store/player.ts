@@ -14,8 +14,8 @@ export const usePlayerStore = defineStore('player', () => {
   } = useMinesStore()
 
   const position = reactive<Position>({
-    top: 0,
-    left: 0,
+    top: -1,
+    left: -1,
   })
 
   function setup(newPos: Position) {
