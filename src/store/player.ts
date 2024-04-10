@@ -20,6 +20,7 @@ export const usePlayerStore = defineStore('player', () => {
 
   function setup(newPos: Position) {
     Object.assign(position, newPos)
+    resetSteps()
   }
 
   function moveLeft() {
@@ -78,10 +79,14 @@ export const usePlayerStore = defineStore('player', () => {
       position.top += 1
   }
 
-  const steps: Step[] = []
+  const steps: Step[] = reactive([])
 
   function pushStep(step: Step) {
     steps.push(step)
+  }
+
+  function resetSteps() {
+    steps.splice(0, steps.length)
   }
 
   return {

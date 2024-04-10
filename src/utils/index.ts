@@ -1,2 +1,2 @@
-export { setup } from './game'
+export { isSamePosition } from './position'
 export { deflate, inflate } from './compress'

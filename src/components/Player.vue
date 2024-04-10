@@ -2,6 +2,10 @@
 import { usePlayerStore } from '~/store/player'
 import { Step } from '~/store/types'
 
+const props = defineProps({
+  isEdit: Boolean,
+})
+
 interface MOVE_OPERATIONS {
   ArrowLeft: () => void
   ArrowRight: () => void
@@ -30,16 +34,23 @@ const operationToStep: OPERATIONS_TO_STEP = {
   ArrowRight: Step.right,
   ArrowLeft: Step.left,
 }
-window.addEventListener('keydown', ({ key }) => {
+
+function handleKeyDown({ key }: { key: string }) {
+  if (props.isEdit)
+    return
   if (Object.keys(moveOperations).includes(key)) {
     pushStep(operationToStep[key as keyof OPERATIONS_TO_STEP])
     moveOperations[key as keyof MOVE_OPERATIONS]()
   }
-})
+}
+
+const cleanup = useEventListener(window, 'keydown', handleKeyDown)
+
+onUnmounted(cleanup)
 </script>
 
 <template>
-  <div absolute h5 w5 :style="style">
+  <div pointer-events-none absolute h5 w5 :style="style">
     <img src="../assets/player.png">
   </div>
 </template>

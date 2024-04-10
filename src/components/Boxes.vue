@@ -10,7 +10,8 @@ const styles = getStyles(positions)
     v-for="(style, i) in styles"
     :key="i"
     :style="style"
+    pointer-events-none
     absolute h5 w5
-    border border-gray-200 rounded dark:border-gray-500
+    border border-gray-400 rounded dark:border-gray-500
   />
 </template>

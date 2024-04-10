@@ -7,7 +7,7 @@
     <a
       i-carbon-logo-github icon-btn
       rel="noreferrer"
-      href="https://github.com"
+      href="https://github.com/efrice"
       target="_blank"
       title="GitHub"
     />

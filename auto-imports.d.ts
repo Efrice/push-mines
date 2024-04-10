@@ -8,6 +8,7 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const compressUrl: typeof import('./src/composables/game')['compressUrl']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -34,9 +35,12 @@ declare global {
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getMap: typeof import('./src/composables/game')['getMap']
   const getStyle: typeof import('./src/composables/styles')['getStyle']
   const getStyles: typeof import('./src/composables/styles')['getStyles']
   const h: typeof import('vue')['h']
+  const howPlay: typeof import('./src/composables/game')['howPlay']
+  const howToPlay: typeof import('./src/composables/share')['howToPlay']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
@@ -87,9 +91,13 @@ declare global {
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const setup: typeof import('./src/composables/game')['setup']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
+  const shareGame: typeof import('./src/composables/share')['shareGame']
+  const shareGif: typeof import('./src/composables/share')['shareGif']
+  const stepOperations: typeof import('./src/composables/share')['stepOperations']
   const styles: typeof import('./src/composables/styles')['styles']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
@@ -302,6 +310,7 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly compressUrl: UnwrapRef<typeof import('./src/composables/game')['compressUrl']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -331,6 +340,8 @@ declare module 'vue' {
     readonly getStyle: UnwrapRef<typeof import('./src/composables/styles')['getStyle']>
     readonly getStyles: UnwrapRef<typeof import('./src/composables/styles')['getStyles']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly howPlay: UnwrapRef<typeof import('./src/composables/game')['howPlay']>
+    readonly howToPlay: UnwrapRef<typeof import('./src/composables/share')['howToPlay']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
@@ -381,9 +392,13 @@ declare module 'vue' {
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly setup: UnwrapRef<typeof import('./src/composables/game')['setup']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
+    readonly shareGame: UnwrapRef<typeof import('./src/composables/share')['shareGame']>
+    readonly shareGif: UnwrapRef<typeof import('./src/composables/share')['shareGif']>
+    readonly stepOperations: UnwrapRef<typeof import('./src/composables/share')['stepOperations']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
@@ -588,6 +603,7 @@ declare module '@vue/runtime-core' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly compressUrl: UnwrapRef<typeof import('./src/composables/game')['compressUrl']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -617,6 +633,8 @@ declare module '@vue/runtime-core' {
     readonly getStyle: UnwrapRef<typeof import('./src/composables/styles')['getStyle']>
     readonly getStyles: UnwrapRef<typeof import('./src/composables/styles')['getStyles']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly howPlay: UnwrapRef<typeof import('./src/composables/game')['howPlay']>
+    readonly howToPlay: UnwrapRef<typeof import('./src/composables/share')['howToPlay']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
@@ -667,9 +685,13 @@ declare module '@vue/runtime-core' {
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly setup: UnwrapRef<typeof import('./src/composables/game')['setup']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
+    readonly shareGame: UnwrapRef<typeof import('./src/composables/share')['shareGame']>
+    readonly shareGif: UnwrapRef<typeof import('./src/composables/share')['shareGif']>
+    readonly stepOperations: UnwrapRef<typeof import('./src/composables/share')['stepOperations']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>

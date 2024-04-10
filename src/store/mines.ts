@@ -1,14 +1,21 @@
 import { defineStore } from 'pinia'
 import { useMapStore } from './map'
 import type { Position } from './types'
+import { isSamePosition } from '~/utils'
 
 export const useMinesStore = defineStore('mines', () => {
   const { isWall } = useMapStore()
 
   const positions = reactive<Position[]>([])
 
-  function setup(newPos: Position[]) {
-    positions.splice(0, positions.length, ...newPos)
+  function setup(newPositions: Position[]) {
+    positions.splice(0, positions.length, ...newPositions)
+  }
+
+  function remove(position: Position) {
+    const index = positions.findIndex(p => isSamePosition(p, position))
+    if (index > -1)
+      positions.splice(index, 1)
   }
 
   function moveLeft({ top, left }: Position): boolean {
@@ -78,6 +85,7 @@ export const useMinesStore = defineStore('mines', () => {
   return {
     positions,
     setup,
+    remove,
     moveLeft,
     moveRight,
     moveUp,

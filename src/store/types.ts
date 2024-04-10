@@ -3,9 +3,10 @@ export enum CellType {
   WALL,
 }
 
-export interface ElementType {
-  type: CellType | 'MINE' | 'PLAYER' | 'BOX'
-  execute: (position: Position) => void
+export type ElementType = CellType | 'MINES' | 'PLAYER' | 'BOX'
+export interface ElementTypes {
+  type: ElementType
+  execute: (position: Position, type?: ElementType) => void
 }
 
 export type MapType = CellType[][]

@@ -1,73 +1,23 @@
 import html2canvas from 'html2canvas'
 import GIF from 'gif.js'
-import type { Step } from '~/store/types'
-import { useMapStore } from '~/store/map'
-import { useMinesStore } from '~/store/mines'
 import { usePlayerStore } from '~/store/player'
-import { useBoxesStore } from '~/store/boxes'
-import { inflate, setup } from '~/utils/index'
+import { deflate } from '~/utils'
+import type { Game, Step } from '~/store/types'
 
-const { map: mapInfo, setup: setupMap } = useMapStore()
-const { position: palyerInfo, setup: setupPlayer, steps, moveUp, moveLeft, moveDown, moveRight } = usePlayerStore()
-const { positions: minesInfo, setup: setupMines, positions: minesPosition } = useMinesStore()
-const { positions: boxesInfo, setup: setupBoxes, positions: boxesPosition } = useBoxesStore()
+const { steps, pushStep, moveUp, moveLeft, moveDown, moveRight } = usePlayerStore()
 
-const map = [
-  [1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1],
-]
-const player = {
-  left: 3,
-  top: 3,
+const source = ref('')
+const { copy } = useClipboard({ source })
+export function shareGame(game: string | Game) {
+  if (typeof game === 'string')
+    copy(`${location.origin}${game}`)
+  else
+    copy(`${location.origin}?game=${deflate(game)}`)
 }
-const mines = [
-  {
-    top: 3,
-    left: 2,
-  },
-  {
-    top: 3,
-    left: 4,
-  },
-  {
-    top: 2,
-    left: 3,
-  },
-  {
-    top: 4,
-    left: 3,
-  },
-]
-const boxes = [
-  {
-    top: 1,
-    left: 3,
-  },
-  {
-    top: 3,
-    left: 5,
-  },
-  {
-    top: 5,
-    left: 3,
-  },
-  {
-    top: 3,
-    left: 1,
-  },
-]
 
-setup({ map, player, mines, boxes })
-
-const route = useRoute()
-const router = useRouter()
-
-// setup(inflate(route.query.game))
+export function howToPlay(game: Game) {
+  copy(`${location.origin}?game=${deflate(game)}&steps=${deflate({ steps })}`)
+}
 
 interface STEP_OPERATIONS {
   [Step.up]: () => void
@@ -76,50 +26,40 @@ interface STEP_OPERATIONS {
   [Step.right]: () => void
 }
 
-const stepOperations: STEP_OPERATIONS = {
+export const stepOperations: STEP_OPERATIONS = {
   1: moveUp,
   2: moveLeft,
   3: moveDown,
   4: moveRight,
 }
-const routeSteps = route.query.steps
-if (routeSteps) {
-  const { steps: querySteps } = inflate(route.query.steps)
-  if (querySteps.length > 0) {
+
+export function shareGif() {
+  if (steps.length > 0) {
     const gif = new GIF({
       workers: 2,
       quality: 10,
     })
-    querySteps.forEach((step: Step, i: number) => {
+
+    steps.push(1)
+    steps.forEach((step: Step, i: number) => {
       setTimeout(async () => {
         stepOperations[step]()
+        pushStep(step)
         const canvas: any = await createCanvas()
         gif.addFrame(canvas, { copy: true })
-      }, 500 * (i + 1))
+      }, 500 * (i + 2))
     })
 
     setTimeout(() => {
       gif.on('finished', (blob: Blob) => {
-        window.open(URL.createObjectURL(blob))
+        const url = URL.createObjectURL(blob)
+        window.open(url)
+        downloadGif(url)
       })
       gif.render()
-    }, (querySteps.length + 1) * 500)
+    }, (steps.length + 2) * 500)
   }
 }
-
-// watchEffect(() => {
-//   router.push({
-//     path: route.path,
-//     query: {
-//       game: deflate({ map: mapInfo, player: palyerInfo, mines: minesInfo, boxes: boxesInfo }),
-//       steps: deflate({ steps }),
-//     },
-//   })
-// })
-
-const passed = computed(() => {
-  return minesPosition.every(mine => boxesPosition.find(position => position.top === mine.top && position.left === mine.left))
-})
 
 async function createCanvas() {
   return new Promise((resolve) => {
@@ -127,4 +67,15 @@ async function createCanvas() {
       resolve(canvas)
     })
   })
+}
+
+function downloadGif(url: string) {
+  const formatted = useDateFormat(useNow(), 'HH_mm_ss')
+  const a = document.createElement('a')
+  a.download = `push-mines-${formatted.value}.gif`
+  a.style.display = 'none'
+  a.href = url
+  document.body.appendChild(a)
+  a.dispatchEvent(new MouseEvent('click'))
+  document.body.removeChild(a)
 }

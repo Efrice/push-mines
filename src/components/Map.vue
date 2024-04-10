@@ -10,15 +10,32 @@ const props = defineProps({
 const { map } = useMapStore()
 const { getSelectElement } = useEditStore()
 
-function handleClick(j: number, i: number) {
-  if (!props.isEdit)
-    return
+function execute(i: number, j: number) {
   if (getSelectElement().execute) {
     getSelectElement().execute({
       top: i,
       left: j,
     })
   }
+}
+const isKeydown = ref(false)
+function handleMousedown(e: MouseEvent, i: number, j: number) {
+  e.preventDefault()
+  if (!props.isEdit)
+    return
+  execute(i, j)
+  isKeydown.value = true
+}
+function handleMousemove(i: number, j: number) {
+  if (!props.isEdit || !isKeydown.value)
+    return
+  execute(i, j)
+}
+function handleMouseup(i: number, j: number) {
+  if (!props.isEdit)
+    return
+  execute(i, j)
+  isKeydown.value = false
 }
 </script>
 
@@ -31,9 +48,11 @@ function handleClick(j: number, i: number) {
       <div
         v-for="(_, j) in item"
         :key="i * 10 + j"
-        @click="handleClick(j, i)"
+        @mousedown="handleMousedown($event, i, j)"
+        @mouseover="handleMousemove(i, j)"
+        @mouseup="handleMouseup(i, j)"
       >
-        <Wall v-if="map[j][i] === CellType.WALL" />
+        <Wall v-if="map[i][j] === CellType.WALL" />
         <Normal v-else :is-edit />
       </div>
     </div>

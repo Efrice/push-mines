@@ -9,7 +9,7 @@ export const useMapStore = defineStore('map', () => {
     map.splice(0, map.length, ...newMap)
   }
 
-  const isWall = ({ top: y, left: x }: Position) => map[x][y] === CellType.WALL
+  const isWall = ({ top: y, left: x }: Position) => map[y][x] === CellType.WALL
 
   return {
     map,
