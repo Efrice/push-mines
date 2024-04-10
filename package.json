@@ -2,7 +2,7 @@
   "private": true,
   "packageManager": "pnpm@8.5.1",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --outDir docs",
     "dev": "vite --port 3333",
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit",
@@ -51,7 +51,7 @@
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "*": "eslint --fix"
+    "src/*": "eslint --fix"
   },
   "eslintConfig": {
     "extends": [
