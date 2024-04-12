@@ -4,7 +4,7 @@ import { useMapStore } from '~/store/map'
 import { usePlayerStore } from '~/store/player'
 import { useMinesStore } from '~/store/mines'
 
-describe('Mines', () => {
+describe('mines', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
     const { setup } = useMapStore()
@@ -145,7 +145,7 @@ describe('Mines', () => {
   })
 })
 
-describe('Mines should not move when next cell is grid', () => {
+describe('mines should not move when next cell is grid', () => {
   const playerPosition = {
     top: 2,
     left: 2,
@@ -234,7 +234,7 @@ describe('Mines should not move when next cell is grid', () => {
   })
 })
 
-describe('Mines should not move when next cell is mine', () => {
+describe('mines should not move when next cell is mine', () => {
   const playerPosition = {
     top: 3,
     left: 3,

@@ -3,7 +3,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import { useMapStore } from '~/store/map'
 import { usePlayerStore } from '~/store/player'
 
-describe('Player', () => {
+describe('player', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
 
@@ -87,7 +87,7 @@ describe('Player', () => {
   })
 })
 
-describe('Player should not move', () => {
+describe('player should not move', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
 

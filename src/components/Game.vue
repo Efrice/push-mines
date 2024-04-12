@@ -8,7 +8,7 @@ import type { Game } from '~/store/types'
 import level1 from '~/data/level1.json'
 
 function getMap(game: string | Game) {
-  // console.log({ game })
+  console.error({ game })
   return typeof game === 'string' ? inflate((game).replaceAll(' ', '+')) : useCloned(game).cloned.value
 }
 
@@ -33,7 +33,7 @@ const passed = computed(() => {
   return minesPosition.every(mine => boxesPosition.find(position => position.top === mine.top && position.left === mine.left))
 })
 watch(passed, () => {
-  if (passed)
+  if (passed.value)
     showMask.value = true
   else
     showMask.value = false
