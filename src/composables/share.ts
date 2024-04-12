@@ -10,13 +10,13 @@ const source = ref('')
 const { copy } = useClipboard({ source })
 export function shareGame(game: string | Game) {
   if (typeof game === 'string')
-    copy(`${location.origin}${game}`)
+    copy(`${location.href}${game}`)
   else
-    copy(`${location.origin}?game=${deflate(game)}`)
+    copy(`${location.href}?game=${deflate(game)}`)
 }
 
 export function howToPlay(game: Game) {
-  copy(`${location.origin}?game=${deflate(game)}&steps=${deflate({ steps })}`)
+  copy(`${location.href}?game=${deflate(game)}&steps=${deflate({ steps })}`)
 }
 
 interface STEP_OPERATIONS {
