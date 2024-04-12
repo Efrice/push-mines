@@ -1,10 +1,9 @@
-import { defineStore } from 'pinia'
 import type { Position } from './types'
 import { isSamePosition } from '~/utils'
 
-export const useBoxesStore = defineStore('boxes', () => {
-  const positions = reactive<Position[]>([])
+const positions = reactive<Position[]>([])
 
+export function useBoxesStore() {
   function setup(newPos: Position[]) {
     positions.splice(0, positions.length, ...newPos)
   }
@@ -20,4 +19,4 @@ export const useBoxesStore = defineStore('boxes', () => {
     setup,
     remove,
   }
-})
+}

@@ -1,12 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { createPinia, setActivePinia } from 'pinia'
 import { useMapStore } from '~/store/map'
 import { usePlayerStore } from '~/store/player'
 
 describe('player', () => {
   beforeEach(() => {
-    setActivePinia(createPinia())
-
     const { setup } = useMapStore()
 
     setup([
@@ -20,6 +17,7 @@ describe('player', () => {
 
   it('should move left', () => {
     const { position, setup, moveLeft } = usePlayerStore()
+
     setup({
       top: 2,
       left: 2,
@@ -89,8 +87,6 @@ describe('player', () => {
 
 describe('player should not move', () => {
   beforeEach(() => {
-    setActivePinia(createPinia())
-
     const { setup } = useMapStore()
 
     setup([

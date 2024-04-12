@@ -3,7 +3,6 @@ import { useMapStore } from '~/store/map'
 import { useMinesStore } from '~/store/mines'
 import { usePlayerStore } from '~/store/player'
 import { useBoxesStore } from '~/store/boxes'
-import { deflate } from '~/utils'
 import { stepOperations } from '~/composables'
 
 const { map, setup: setupMap } = useMapStore()
@@ -18,13 +17,13 @@ export function setup({ map, player, mines, boxes }: Game) {
   setupBoxes(boxes)
 }
 
-export function compressUrl() {
-  return deflate({
+export function getMap() {
+  return {
     map,
     player,
     mines,
     boxes,
-  })
+  }
 }
 
 export function howPlay(steps: Step[]) {

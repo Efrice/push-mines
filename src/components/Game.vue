@@ -7,26 +7,39 @@ import { inflate } from '~/utils'
 import type { Game } from '~/store/types'
 import level1 from '~/data/level1.json'
 
+const { steps: playerSteps, resetSteps } = usePlayerStore()
+const { positions: minesPosition } = useMinesStore()
+const { positions: boxesPosition } = useBoxesStore()
+
 function getMap(game: string | Game) {
-  console.error({ game })
+  // console.log({ game })
   return typeof game === 'string' ? inflate((game).replaceAll(' ', '+')) : useCloned(game).cloned.value
 }
 
 const gameRef = ref<Game>(level1)
 function handleSelect(game: Game) {
-  gameRef.value = game
+  gameRef.value = useCloned(game).cloned.value
   setup(game)
 }
 
-const route = useRoute()
-setup(getMap(route.query.game as string || gameRef.value))
+if (location.search) {
+  const gameRegex = /(?<=game=)([^&]+)/
+  const matchGame = location.search.match(gameRegex)
+  const game = matchGame === null ? '' : matchGame[0]
+  if (game) {
+    gameRef.value = useCloned(inflate(game)).cloned.value
+    setup(getMap(game))
+  }
 
-const steps = route.query.steps ? inflate(route.query.steps).steps : []
-howPlay(steps)
-
-const { steps: playerSteps } = usePlayerStore()
-const { positions: minesPosition } = useMinesStore()
-const { positions: boxesPosition } = useBoxesStore()
+  const stepsRegex = /(steps=)(.+)/
+  const matchSteps = location.search.match(stepsRegex)
+  const steps = matchSteps === null ? [] : matchSteps[2]
+  if (steps?.length > 0)
+    howPlay(inflate(steps).steps)
+}
+else {
+  setup(getMap(gameRef.value))
+}
 
 const showMask = ref(false)
 const passed = computed(() => {
@@ -40,19 +53,32 @@ watch(passed, () => {
 })
 
 function restart() {
-  setup(getMap(route.query.game as string || gameRef.value))
+  setup(getMap(gameRef.value))
+  resetSteps()
+}
+
+const showEdit = ref(false)
+function handleEdit() {
+  showEdit.value = true
+}
+
+function handleEditPlay(game: Game) {
+  gameRef.value = useCloned(game).cloned.value
+  setup(game)
+  resetSteps()
+  showEdit.value = false
 }
 
 function handleShare() {
-  shareGame(location.search || gameRef.value)
+  shareGame(gameRef.value)
 }
 
 function handlePlay() {
-  howToPlay(getMap(route.query.game as string || gameRef.value))
+  howToPlay(getMap(gameRef.value))
 }
 
 function handleShareGif() {
-  setup(getMap(route.query.game as string || gameRef.value))
+  setup(getMap(gameRef.value))
   shareGif()
 }
 
@@ -63,7 +89,10 @@ function handleCloseMask() {
 </script>
 
 <template>
-  <div>
+  <div v-if="showEdit">
+    <Edit @play="handleEditPlay" />
+  </div>
+  <div v-else>
     <h4 mb-2>
       PUSH MINES
     </h4>
@@ -80,10 +109,8 @@ function handleCloseMask() {
       <div mr-2 btn @click="restart">
         RESTART
       </div>
-      <div btn>
-        <RouterLink to="/edit">
-          EDIT MAP
-        </RouterLink>
+      <div mr-2 btn @click="handleEdit">
+        EDIT MAP
       </div>
     </div>
     <div mt-4>

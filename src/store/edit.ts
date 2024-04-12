@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia'
 import type { ElementType, ElementTypes, Position } from './types'
 import { useMapStore } from './map'
 import { usePlayerStore } from './player'
@@ -60,9 +59,9 @@ export const BoxElement: ElementTypes = {
   },
 }
 
-export const useEditStore = defineStore('edit', () => {
-  let selectElement = reactive<ElementTypes>(NormalElement)
+let selectElement = reactive<ElementTypes>(NormalElement)
 
+export function useEditStore() {
   function getSelectElement() {
     return selectElement
   }
@@ -76,4 +75,4 @@ export const useEditStore = defineStore('edit', () => {
     getSelectElement,
     setSelectElement,
   }
-})
+}

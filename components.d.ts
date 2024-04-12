@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Boxes: typeof import('./src/components/Boxes.vue')['default']
     Confetti: typeof import('./src/components/Confetti.vue')['default']
+    Edit: typeof import('./src/components/Edit.vue')['default']
     Game: typeof import('./src/components/Game.vue')['default']
     Map: typeof import('./src/components/Map.vue')['default']
     Message: typeof import('./src/components/Message.vue')['default']
@@ -16,8 +17,6 @@ declare module 'vue' {
     Normal: typeof import('./src/components/Normal.vue')['default']
     OverMan: typeof import('./src/components/OverMan.vue')['default']
     Player: typeof import('./src/components/Player.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
     SelectLevel: typeof import('./src/components/SelectLevel.vue')['default']
     TheFooter: typeof import('./src/components/TheFooter.vue')['default']
     Wall: typeof import('./src/components/Wall.vue')['default']

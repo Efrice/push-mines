@@ -1,9 +1,15 @@
-import { defineStore } from 'pinia'
 import { useMapStore } from './map'
 import { useMinesStore } from './mines'
 import type { Position, Step } from './types'
 
-export const usePlayerStore = defineStore('player', () => {
+const position = reactive<Position>({
+  top: -1,
+  left: -1,
+})
+
+const steps: Step[] = reactive([])
+
+export function usePlayerStore() {
   const { isWall } = useMapStore()
   const {
     isMine,
@@ -13,14 +19,8 @@ export const usePlayerStore = defineStore('player', () => {
     moveDown: moveMineDown,
   } = useMinesStore()
 
-  const position = reactive<Position>({
-    top: -1,
-    left: -1,
-  })
-
   function setup(newPos: Position) {
     Object.assign(position, newPos)
-    resetSteps()
   }
 
   function moveLeft() {
@@ -79,8 +79,6 @@ export const usePlayerStore = defineStore('player', () => {
       position.top += 1
   }
 
-  const steps: Step[] = reactive([])
-
   function pushStep(step: Step) {
     steps.push(step)
   }
@@ -92,6 +90,7 @@ export const usePlayerStore = defineStore('player', () => {
   return {
     position,
     steps,
+    resetSteps,
     pushStep,
     setup,
     moveLeft,
@@ -99,4 +98,4 @@ export const usePlayerStore = defineStore('player', () => {
     moveUp,
     moveDown,
   }
-})
+}

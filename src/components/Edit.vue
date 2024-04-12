@@ -4,9 +4,10 @@ import { useMapStore } from '~/store/map'
 import { usePlayerStore } from '~/store/player'
 import { useBoxesStore } from '~/store/boxes'
 import { useMinesStore } from '~/store/mines'
-
 import type { ElementTypes } from '~/store/types'
-import { compressUrl, setup } from '~/composables'
+import { getMap, setup } from '~/composables'
+
+const emit = defineEmits(['play'])
 
 const isEdit = true
 const rows = ref(8)
@@ -16,7 +17,6 @@ const { position: player, setup: setupPlayer } = usePlayerStore()
 const { positions: boxes, setup: setupBoxes } = useBoxesStore()
 const { positions: mines, setup: setupMines } = useMinesStore()
 
-const url = computed(() => `/?game=${compressUrl()}`)
 const playerStart = {
   top: -1,
   left: -1,
@@ -102,10 +102,9 @@ function handleClick(element: ElementTypes) {
   setSelectElement(element)
 }
 
-const router = useRouter()
 function goPlay() {
   if (checkGame())
-    router.replace(url.value)
+    emit('play', getMap())
 }
 function checkGame() {
   if (player.top === playerStart.top && player.left === playerStart.left)

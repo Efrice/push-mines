@@ -1,12 +1,11 @@
-import { defineStore } from 'pinia'
 import { useMapStore } from './map'
 import type { Position } from './types'
 import { isSamePosition } from '~/utils'
 
-export const useMinesStore = defineStore('mines', () => {
-  const { isWall } = useMapStore()
+const positions = reactive<Position[]>([])
 
-  const positions = reactive<Position[]>([])
+export function useMinesStore() {
+  const { isWall } = useMapStore()
 
   function setup(newPositions: Position[]) {
     positions.splice(0, positions.length, ...newPositions)
@@ -92,4 +91,4 @@ export const useMinesStore = defineStore('mines', () => {
     moveDown,
     isMine,
   }
-})
+}

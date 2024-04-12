@@ -1,12 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { createPinia, setActivePinia } from 'pinia'
 import { useMapStore } from '~/store/map'
 import { usePlayerStore } from '~/store/player'
 import { useMinesStore } from '~/store/mines'
 
 describe('mines', () => {
   beforeEach(() => {
-    setActivePinia(createPinia())
     const { setup } = useMapStore()
     setup([
       [1, 1, 1, 1, 1, 1, 1],
@@ -151,7 +149,6 @@ describe('mines should not move when next cell is grid', () => {
     left: 2,
   }
   beforeEach(() => {
-    setActivePinia(createPinia())
     const { setup } = useMapStore()
     setup([
       [1, 1, 1, 1, 1],
@@ -240,7 +237,6 @@ describe('mines should not move when next cell is mine', () => {
     left: 3,
   }
   beforeEach(() => {
-    setActivePinia(createPinia())
     const { setup } = useMapStore()
     setup([
       [1, 1, 1, 1, 1, 1, 1],
