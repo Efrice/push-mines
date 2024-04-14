@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { howPlay, howToPlay, setup, shareGame, shareGif } from '~/composables'
+import { howPlay, howToPlay, setup, shareGame, shareGif, $message } from '~/composables'
 import { usePlayerStore } from '~/store/player'
 import { useMinesStore } from '~/store/mines'
 import { useBoxesStore } from '~/store/boxes'
@@ -71,10 +71,12 @@ function handleEditPlay(game: Game) {
 
 function handleShare() {
   shareGame(gameRef.value)
+  $message.success('Copied.')
 }
 
 function handlePlay() {
   howToPlay(getMap(gameRef.value))
+  $message.success('Copied.')
 }
 
 function handleShareGif() {

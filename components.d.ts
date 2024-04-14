@@ -12,7 +12,6 @@ declare module 'vue' {
     Edit: typeof import('./src/components/Edit.vue')['default']
     Game: typeof import('./src/components/Game.vue')['default']
     Map: typeof import('./src/components/Map.vue')['default']
-    Message: typeof import('./src/components/Message.vue')['default']
     Mines: typeof import('./src/components/Mines.vue')['default']
     Normal: typeof import('./src/components/Normal.vue')['default']
     OverMan: typeof import('./src/components/OverMan.vue')['default']

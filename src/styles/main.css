@@ -9,3 +9,15 @@ body,
 html.dark {
   background: #121212;
 }
+
+.v-toast__item {
+  height: 40px;
+  min-height: unset;
+}
+
+.v-toast__item .v-toast__icon {
+  display: block;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+}
