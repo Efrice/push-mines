@@ -1,6 +1,7 @@
 import { useMapStore } from './map'
 import { useMinesStore } from './mines'
 import type { Position, Step } from './types'
+import { Step as step } from './types'
 
 const position = reactive<Position>({
   top: -1,
@@ -33,8 +34,10 @@ export function usePlayerStore() {
     let move = true
     if (isMine(leftPosition))
       move = moveMineLeft(leftPosition)
-    if (move)
+    if (move) {
       position.left -= 1
+      pushStep(step.left)
+    }
   }
 
   function moveRight() {
@@ -47,8 +50,10 @@ export function usePlayerStore() {
     let move = true
     if (isMine(rightPosition))
       move = moveMineRight(rightPosition)
-    if (move)
+    if (move) {
       position.left += 1
+      pushStep(step.right)
+    }
   }
 
   function moveUp() {
@@ -61,8 +66,10 @@ export function usePlayerStore() {
     let move = true
     if (isMine(upPosition))
       move = moveMineUp(upPosition)
-    if (move)
+    if (move) {
       position.top -= 1
+      pushStep(step.up)
+    }
   }
 
   function moveDown() {
@@ -75,8 +82,10 @@ export function usePlayerStore() {
     let move = true
     if (isMine(downPosition))
       move = moveMineDown(downPosition)
-    if (move)
+    if (move) {
       position.top += 1
+      pushStep(step.down)
+    }
   }
 
   function pushStep(step: Step) {
@@ -91,7 +100,6 @@ export function usePlayerStore() {
     position,
     steps,
     resetSteps,
-    pushStep,
     setup,
     moveLeft,
     moveRight,

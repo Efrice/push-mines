@@ -6,7 +6,7 @@ import { useBoxesStore } from '~/store/boxes'
 import { stepOperations } from '~/composables'
 
 const { map, setup: setupMap } = useMapStore()
-const { position: player, setup: setupPlayer, pushStep } = usePlayerStore()
+const { position: player, setup: setupPlayer } = usePlayerStore()
 const { positions: mines, setup: setupMines } = useMinesStore()
 const { positions: boxes, setup: setupBoxes } = useBoxesStore()
 
@@ -31,7 +31,6 @@ export function howPlay(steps: Step[]) {
     steps.forEach((step: Step, i: number) => {
       setTimeout(async () => {
         stepOperations[step]()
-        pushStep(step)
       }, 500 * (i + 1))
     })
   }

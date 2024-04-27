@@ -107,15 +107,15 @@ function goPlay() {
     emit('play', getMap())
 }
 function checkGame() {
-  if (player.top === playerStart.top && player.left === playerStart.left){
+  if (player.top === playerStart.top && player.left === playerStart.left) {
     $message.error('Game need a player.')
     return false
   }
-  if (mines.length === 0 || boxes.length === 0){
+  if (mines.length === 0 || boxes.length === 0) {
     $message.error('The number of mines or boxes at least one.')
     return false
   }
-  if (boxes.length !== mines.length || boxes.length === 0){
+  if (boxes.length !== mines.length || boxes.length === 0) {
     $message.error('The number of mines and boxes is not equal.')
     return false
   }

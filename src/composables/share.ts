@@ -4,7 +4,7 @@ import { usePlayerStore } from '~/store/player'
 import { deflate } from '~/utils'
 import type { Game, Step } from '~/store/types'
 
-const { steps, pushStep, moveUp, moveLeft, moveDown, moveRight } = usePlayerStore()
+const { steps, moveUp, moveLeft, moveDown, moveRight } = usePlayerStore()
 
 const source = ref('')
 const { copy } = useClipboard({ source })
@@ -44,7 +44,6 @@ export function shareGif() {
     steps.forEach((step: Step, i: number) => {
       setTimeout(async () => {
         stepOperations[step]()
-        pushStep(step)
         const canvas: any = await createCanvas()
         gif.addFrame(canvas, { copy: true })
       }, 500 * (i + 2))

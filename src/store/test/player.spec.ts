@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { useMapStore } from '~/store/map'
 import { usePlayerStore } from '~/store/player'
+import { useMapStore } from '~/store/map'
 
 describe('player', () => {
   beforeEach(() => {
@@ -152,5 +152,47 @@ describe('player should not move', () => {
     moveDown()
 
     expect(position).toEqual(playerPosition)
+  })
+})
+
+describe('player steps', () => {
+  it('should push', () => {
+    const { setup } = useMapStore()
+    setup([
+      [1, 1, 1, 1, 1],
+      [1, 0, 0, 0, 1],
+      [1, 0, 0, 0, 1],
+      [1, 0, 0, 0, 1],
+      [1, 1, 1, 1, 1],
+    ])
+    const { steps, setup: setupPlayer, moveLeft } = usePlayerStore()
+
+    setupPlayer({
+      top: 2,
+      left: 2,
+    })
+
+    moveLeft()
+
+    expect(steps.length).toEqual(1)
+  })
+
+  it.only('should not push', () => {
+    const { setup } = useMapStore()
+    setup([
+      [1, 1, 1],
+      [1, 0, 1],
+      [1, 1, 1],
+    ])
+    const { steps, setup: setupPlayer, moveLeft } = usePlayerStore()
+
+    setupPlayer({
+      top: 1,
+      left: 1,
+    })
+
+    moveLeft()
+
+    expect(steps.length).toEqual(0)
   })
 })

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { usePlayerStore } from '~/store/player'
-import { Step } from '~/store/types'
 
 const props = defineProps({
   isEdit: Boolean,
@@ -13,14 +12,7 @@ interface MOVE_OPERATIONS {
   ArrowDown: () => void
 }
 
-interface OPERATIONS_TO_STEP {
-  ArrowUp: Step.up
-  ArrowDown: Step.down
-  ArrowRight: Step.right
-  ArrowLeft: Step.left
-}
-
-const { position, pushStep, moveLeft, moveRight, moveUp, moveDown } = usePlayerStore()
+const { position, moveLeft, moveRight, moveUp, moveDown } = usePlayerStore()
 const style = getStyle(position)
 const moveOperations: MOVE_OPERATIONS = {
   ArrowLeft: moveLeft,
@@ -28,20 +20,12 @@ const moveOperations: MOVE_OPERATIONS = {
   ArrowUp: moveUp,
   ArrowDown: moveDown,
 }
-const operationToStep: OPERATIONS_TO_STEP = {
-  ArrowUp: Step.up,
-  ArrowDown: Step.down,
-  ArrowRight: Step.right,
-  ArrowLeft: Step.left,
-}
 
 function handleKeyDown({ key }: { key: string }) {
   if (props.isEdit)
     return
-  if (Object.keys(moveOperations).includes(key)) {
-    pushStep(operationToStep[key as keyof OPERATIONS_TO_STEP])
+  if (Object.keys(moveOperations).includes(key))
     moveOperations[key as keyof MOVE_OPERATIONS]()
-  }
 }
 
 const cleanup = useEventListener(window, 'keydown', handleKeyDown)
